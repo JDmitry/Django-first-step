@@ -11,5 +11,8 @@ def about(request, name, age):
                             </h1>
                         """)
 
-def contact(reqest):
-    return HttpResponse("<h1>Contact</h1>")
+def user(request, name="No name", age=0):
+    return HttpResponse(f"""
+                            <p>Name: {name}</p>
+                            <p>Age: {age}</p>
+                         """)

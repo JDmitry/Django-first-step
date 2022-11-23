@@ -20,5 +20,7 @@ from App import views
 urlpatterns = [
     path('', views.index),
     re_path('^about', views.about, kwargs={"name": "John", "age": 78}),
-    re_path('^contact', views.contact),
+    re_path('^user/(?P<name>\D+)/(?P<age>\d+)', views.user),
+    re_path('^user/(?P<name>\D+)', views.user),
+    re_path('^user', views.user),
 ]
