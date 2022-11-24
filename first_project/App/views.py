@@ -1,18 +1,19 @@
-from django.http import HttpResponse
-  
+from django.http import JsonResponse
+from django.core.serializers.json import DjangoJSONEncoder
+ 
 def index(request):
-    return HttpResponse("<h1>Index</h1>")
-
-def about(request, name, age):
-    return HttpResponse(f"""
-                            <h1>
-                                name: {name}, 
-                                age: {age} 
-                            </h1>
-                        """)
-
-def user(request, name="No name", age=0):
-    return HttpResponse(f"""
-                            <p>Name: {name}</p>
-                            <p>Age: {age}</p>
-                         """)
+    bob = Person("Bob", 56)
+    return JsonResponse(bob, safe=False, encoder=PersonEncoder)
+ 
+class Person:
+  
+    def __init__(self, name, age):
+        self.name = name    # имя человека
+        self.age = age        # возраст человека
+ 
+class PersonEncoder(DjangoJSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, Person):
+            return {"name": obj.name, "age": obj.age}
+            # return obj.__dict__
+        return super().default(obj)
