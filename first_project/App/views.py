@@ -1,12 +1,11 @@
-from django.http import HttpResponse
+from django.shortcuts import render
 
-def set(request):
-    name = request.GET.get("name", "No")
-    res = HttpResponse(f"Name: {name}")
-    res.set_cookie("user", name)
-    return res
- 
-def get(request):
-    # user = request.COOKIES["user"]
-    user = request.GET.get_sign_cookie("user")
-    return HttpResponse(f"Hi, {user}")
+def index(request):
+    return render(request, "index.html")
+
+def about(request):
+    return render(request, "about.html")
+
+def contact(request):
+    return render(request, "contact.html")
+
