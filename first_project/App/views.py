@@ -1,11 +1,13 @@
 from django.shortcuts import render
 
+class User:
+    def __init__(self, name):
+        self.name = name
+
 def index(request):
-    return render(request, "index.html")
+    user = User("Sam")
+    data = {"user": user}
+    return render(request, "index.html", context=data)
 
-def about(request):
-    return render(request, "about.html")
 
-def contact(request):
-    return render(request, "contact.html")
 
