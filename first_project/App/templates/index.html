@@ -7,7 +7,12 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Main page</h1>
-    {% include "banner.html" with location="Here" only %}
+    <form method="POST">
+        {% csrf_token %}
+        <table>
+            {{ form }}
+        </table>
+        <input type="submit" value="Send">
+    </form>
 </body>
 </html>
