@@ -1,13 +1,15 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .forms import UserForm
-  
+ 
 def index(request):
     if request.method == "POST":
-        name = request.POST.get("name")
-        comment = request.POST.get("comment")
-        num = request.POST.get("num")
-        return HttpResponse(f"<h1>Name: {name}    -   Num:  {num}  - Comment: {comment}</h1>")
+        userform = UserForm(request.POST)
+        if userform.is_valid():
+            name = userform.cleaned_data["name"]
+            return HttpResponse(f"<h2>Hello, {name}</h2>")
+        else:
+            return HttpResponse("Invalid data")
     else:
-        userform = UserForm(field_order = ["name", "comment", "num"])
+        userform = UserForm()
         return render(request, "index.html", {"form": userform})
